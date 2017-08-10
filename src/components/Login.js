@@ -2,13 +2,14 @@
 * *****************************************/
 
 import React, { Component } from 'react';
+import './login.css'; // Import the login css script.
 
 
 class Login extends Component{
   render(){
     return(
       <div>
-        <button>Bucket List App</button>
+        <button id="findpass">Bucket List App</button>
         <div className="form">
           <form action="login"method="POST">
             <div className="forceColor"></div>
