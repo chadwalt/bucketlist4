@@ -12,6 +12,7 @@ class Login extends Component{
       username: '',
       password: ''
     }
+    this.create_account = this.create_account.bind(this);
   }
 
   render(){
@@ -31,12 +32,18 @@ class Login extends Component{
              <input type="password" className="input" id="password" placeholder="Password" name="password"/>
            </div>
             <button className="submit" name="submit" type="submit" id="submit">Login</button>
-            <button className="submit" id="signupAccount">Create Account</button>
+            <br/>
+            <button className="submit" id="signupAccount" onClick={this.create_account}>Create Account</button>
         </form>
        </div>
       </div>
     );
   };
+
+  create_account (e){
+    e.preventDefault();
+    console.log('Button working');
+  }
 }
 
 export default Login;
