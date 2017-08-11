@@ -64,8 +64,19 @@ class Login extends Component{
     params.append('username', this.state.username);
     params.append('password', this.state.password);
 
+    if (this.state.username === '' || this.state.password === ''){
+      alert('Please provide all fields.');
+      return;
+    }
+
     axios.post('https://mybucketlist-api.herokuapp.com/auth/login', params).then(function(response){
       console.log(response.data);
+      let data = response.data;
+      if (data.success){
+
+      } else {
+        alert(data.message);
+      }
     });
   }
   /* This will handle navigating the user to the signup page.
