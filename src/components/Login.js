@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './login.css'; // Import the login css script.
-import { link } from 'react-dom';
+//import { link } from 'react-dom';
 import Signup from './Signup'
 
 class Login extends Component{
@@ -57,11 +57,15 @@ class Login extends Component{
     e.preventDefault();
     let payload = {
       'username' : this.state.username,
-      'email' : this.state.password
+      'password' : this.state.password
     }
 
-    axios.post('https://mybucketlist-api.herokuapp.com/auth/login', payload).then(function(response){
-      console.log(response);
+    var params = new URLSearchParams(); // Using the x-www-form-urlencoded.
+    params.append('username', this.state.username);
+    params.append('password', this.state.password);
+
+    axios.post('https://mybucketlist-api.herokuapp.com/auth/login', params).then(function(response){
+      console.log(response.data);
     });
   }
   /* This will handle navigating the user to the signup page.
