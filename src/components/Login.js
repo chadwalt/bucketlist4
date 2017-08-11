@@ -2,6 +2,7 @@
 * *****************************************/
 
 import React, { Component } from 'react';
+import axios from 'axios';
 import './login.css'; // Import the login css script.
 import { link } from 'react-dom';
 import Signup from './Signup'
@@ -15,6 +16,7 @@ class Login extends Component{
     }
     this.create_account = this.create_account.bind(this);
     this.handle_input = this.handle_input.bind(this);
+    this.login = this.login.bind(this);
   }
 
   handle_input(event){
@@ -39,7 +41,7 @@ class Login extends Component{
              <div className="spanColor"></div>
              <input type="password" className="input" onChange={this.handle_input} id="password" placeholder="Password" name="password"/>
            </div>
-            <button className="submit" name="submit" type="submit" id="submit">Login</button>
+            <button className="submit" name="submit" onClick={this.login} id="submit">Login</button>
             <br/>
             <button className="submit" id="signupAccount" onClick={this.create_account}>Create Account</button>
         </form>
@@ -48,6 +50,23 @@ class Login extends Component{
     );
   };
 
+  /* This will handle loggin the user.
+  * @param e => Event, the event fired when the button is clicked.
+  * *******************************************************************/
+  login (e){
+    e.preventDefault();
+    let payload = {
+      'username' : this.state.username,
+      'email' : this.state.password
+    }
+
+    axios.post('https://mybucketlist-api.herokuapp.com/auth/login', payload).then(function(response){
+      console.log(response);
+    });
+  }
+  /* This will handle navigating the user to the signup page.
+  * @param e => Event, the event fired when the button is clicked.
+  * *******************************************************************/
   create_account (e){
     e.preventDefault();
     console.log('Button working');
