@@ -4,16 +4,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './login.css'; // Import the login css script.
-import { link } from 'react-dom';
-import Signup from './Signup';
-import Routes from './Routes';
+import { Link } from 'react-router-dom';
 
 class Login extends Component{
   constructor(props){
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      showSignup: false
     }
     this.create_account = this.create_account.bind(this);
     this.handle_input = this.handle_input.bind(this);
@@ -44,7 +43,10 @@ class Login extends Component{
            </div>
             <button className="submit" name="submit" onClick={this.login} id="submit">Login</button>
             <br/>
-            <button className="submit" id="signupAccount" onClick={this.create_account}>Create Account</button>
+            <div>
+            <button className="submit" onClick={this.create_account} id="submit">Create Account</button>
+
+            </div>
         </form>
        </div>
       </div>
@@ -81,7 +83,8 @@ class Login extends Component{
   * *******************************************************************/
   create_account (e){
     e.preventDefault();
-    
+    window.location.href = '/signup'
+
   }
 }
 
