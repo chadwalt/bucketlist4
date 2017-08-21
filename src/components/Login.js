@@ -4,8 +4,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './login.css'; // Import the login css script.
-//import { link } from 'react-dom';
-import Signup from './Signup'
+import { link } from 'react-dom';
+import Signup from './Signup';
+import Routes from './Routes';
 
 class Login extends Component{
   constructor(props){
@@ -55,10 +56,6 @@ class Login extends Component{
   * *******************************************************************/
   login (e){
     e.preventDefault();
-    let payload = {
-      'username' : this.state.username,
-      'password' : this.state.password
-    }
 
     var params = new URLSearchParams(); // Using the x-www-form-urlencoded.
     params.append('username', this.state.username);
@@ -84,8 +81,7 @@ class Login extends Component{
   * *******************************************************************/
   create_account (e){
     e.preventDefault();
-    console.log('Button working');
-    console.log(this.state.username, this.state.password);
+    
   }
 }
 
