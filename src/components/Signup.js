@@ -10,6 +10,7 @@ class Signup extends Component{
       sur_name: '',
       username: '',
       password: '',
+      email: ''
     }
     this.create_account = this.create_account.bind(this);
     this.handle_input = this.handle_input.bind(this);
@@ -50,7 +51,7 @@ class Signup extends Component{
             </div>
             <div className="topbar">
               <div className="spanColor"></div>
-              <input type="email" className="input" name="email" id="email" placeholder="Email" />
+              <input type="email" className="input" name="email" id="email" onChange={this.handle_input} placeholder="Email" />
             </div>
             <button className="submit" type="submit" onClick={this.create_account} id="submit">Create Account</button>
             <br/>
@@ -72,27 +73,18 @@ class Signup extends Component{
     params.append('sur_name', this.state.sur_name);
     params.append('username', this.state.username);
     params.append('password', this.state.password);
+    params.append('email', this.state.email);
 
     if (this.state.username === '' || this.state.password === '' || this.state.first_name === '' || this.state.sur_name === '' ){
       alert('Please provide all fields.');
       return;
     }
 
-    let obj = {
-      first_name: this.state.first_name,
-      sur_name: this.state.sur_name,
-      username: this.state.username,
-      password: this.state.password
-    }
-
-    console.log(obj);
-    return;
-
-    axios.post('https://mybucketlist-api.herokuapp.com/auth/login', params).then(function(response){
+    axios.post('https://mybucketlist-api.herokuapp.com/auth/register', params).then(function(response){
       console.log(response.data);
       let data = response.data;
       if (data.success){
-
+        console.log('Logined')
       } else {
         alert(data.message);
       }
