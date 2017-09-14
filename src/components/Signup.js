@@ -31,6 +31,7 @@ class Signup extends Component{
         <button id="findpass">Bucket List App</button>
         <div className="form signupForm">
           <form action="/create_account" method="POST">
+            <div className="forceColor"></div>
             <div className="topbar">
               <div className="spanColor"></div>
               <input type="text" className="input" name="first_name" onChange={this.handle_input} id="first_name" placeholder="First Name" />
