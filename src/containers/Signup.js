@@ -1,18 +1,20 @@
-import React, {Component} from "react"
+import React, { Component } from "react"
 import axios from "axios"
 import SignupForm from "../components/signup_form"
+import { Redirect } from "react-router"
 
-
-class Signup extends Component{
-	constructor(props){
+class Signup extends Component {
+	constructor(props) {
 		super(props)
 		this.state = {
 			first_name: "",
 			sur_name: "",
 			username: "",
 			password: "",
-			email: ""
+			email: "",
+			redirect: false
 		}
+		
 		this.create_account = this.create_account.bind(this)
 		this.handle_input = this.handle_input.bind(this)
 		this.login = this.login.bind(this)
@@ -21,15 +23,21 @@ class Signup extends Component{
 	/* This will handle getting input from the form.
 	* @param event => Event fired when the input is changed in the form.
 	********************************************************************/
-	handle_input(event){
+	handle_input(event) {
 		const name = event.target.name
 		const value = event.target.value
-		this.setState({[name]: value})
+		this.setState({ [name]: value })
 	}
 
-	render(){
-		return(
-			<SignupForm 
+	render() {
+		const { redirect } = this.state
+
+		if (redirect) {
+			return (<Redirect to="/" />)
+		}
+
+		return (
+			<SignupForm
 				{...this.props}
 				onInput={this.handle_input}
 				onSubmit={this.create_account}
@@ -41,7 +49,7 @@ class Signup extends Component{
 	/* This will handle creating the account for the user.
 	* @param e => Event, the event fired when the button is clicked.
 	* *******************************************************************/
-	create_account (e){
+	create_account(e) {
 		e.preventDefault()
 
 		var params = new URLSearchParams() // Using the x-www-form-urlencoded.
@@ -51,27 +59,32 @@ class Signup extends Component{
 		params.append("password", this.state.password)
 		params.append("email", this.state.email)
 
-		if (this.state.username === "" || this.state.password === "" || this.state.first_name === "" || this.state.sur_name === "" ){
+		if (this.state.username === "" || this.state.password === "" || this.state.first_name === "" || this.state.sur_name === "") {
 			alert("Please provide all fields.")
 			return
 		}
 
-		axios.post("https://mybucketlist-api.herokuapp.com/auth/register", params).then(function(response){
+		axios.post("https://mybucketlist-api.herokuapp.com/auth/register", params).then(function (response) {
 			let data = response.data
-			if (data.success){
-				window.location.href = "/"
+			if (data.success) {
+				this.setState({
+					redirect: true
+				})
 			} else {
 				alert(data.message)
 			}
-		})
+		}.bind(this))
 	}
 
 	/* This will handle navigating the user to the login page.
 	* @param e => Event, the event fired when the button is clicked.
 	* *******************************************************************/
-	login(e){
+	login(e) {
 		e.preventDefault()
-		window.location.href = "/"
+
+		this.setState({
+			redirect: true
+		})
 	}
 
 
