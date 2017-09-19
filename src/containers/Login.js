@@ -12,7 +12,7 @@ class Login extends Component {
 		this.state = {
 			username: "",
 			password: "",
-			redirect: false
+			redirect: ""
 		}
 		this.create_account = this.create_account.bind(this)
 		this.handle_input = this.handle_input.bind(this)
@@ -28,8 +28,10 @@ class Login extends Component {
 	render() {
 		const { redirect } = this.state
 
-		if (redirect) {
+		if (redirect === "signup") {
 			return (<Redirect to="/signup" />)
+		} else if (redirect === "dashboard") {
+			return (<Redirect to="/dashboard" />)
 		}
 
 		return (
@@ -60,11 +62,13 @@ class Login extends Component {
 		axios.post("https://mybucketlist-api.herokuapp.com/auth/login", params).then(function (response) {
 			let data = response.data
 			if (data.success) {
-				//console.log(response.data)
+				this.setState({
+					redirect: "dashboard"
+				})
 			} else {
 				alert(data.message)
 			}
-		})
+		}.bind(this))
 	}
 	/* This will handle navigating the user to the signup page.
 	* @param e => Event, the event fired when the button is clicked.
@@ -73,7 +77,7 @@ class Login extends Component {
 		e.preventDefault()
 
 		this.setState({
-			redirect: true
+			redirect: "signup"
 		})
 	}
 }
