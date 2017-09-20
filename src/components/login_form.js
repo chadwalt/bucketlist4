@@ -1,28 +1,35 @@
 import React from "react"
-import "./static/login.css" // Load the css
+
+import "./static/main_app/bootstrap/css/bootstrap.min.css"
+import "./static/main_app/metisMenu/metisMenu.min.css"
+import "./static/main_app/dist/css/sb-admin-2.css"
+import "./static/main_app/font-awesome/css/font-awesome.min.css"
 
 const LoginForm = (props) => (
-	<div>
-		<button id="findpass">Bucket List App</button>
-		<div className="form">
-			<form action="login" method="POST">
-				<div className="forceColor"></div>
-				<div className="topbar">
-					<div className="spanColor"></div>
-					<input type="text" className="input" onChange={props.onInput} name="username" id="username" placeholder="Username" />
+	<div className="container">
+		<div className="row">
+			<div className="col-md-4 col-md-offset-4">
+				<div className="login-panel panel panel-default">
+					<div className="panel-heading">
+						<h3 className="panel-title">Please Sign In</h3>
+					</div>
+					<div className="panel-body">
+						<form role="form">
+							<fieldset>
+								<div className="form-group">
+									<input className="form-control" placeholder="Username" onChange={props.onInput} name="username" type="text" autoFocus />
+								</div>
+								<div className="form-group">
+									<input className="form-control" placeholder="Password" onChange={props.onInput} name="password" type="password" />
+								</div>
+								
+								<a href="index.html" className="btn btn-lg btn-success btn-block" onClick={props.onSubmit} >Login</a>
+								<a href="index.html" className="btn btn-lg btn-success btn-block" onClick={props.onSignup}>Create Account</a>
+							</fieldset>
+						</form>
+					</div>
 				</div>
-
-				<div className="topbar">
-					<div className="spanColor"></div>
-					<input type="password" className="input" onChange={props.onInput} id="password" placeholder="Password" name="password" />
-				</div>
-				<button className="submit" name="submit" onClick={props.onSubmit} id="submit">Login</button>
-				<br />
-				<div>
-					<button className="submit" onClick={props.onSignup} id="submit">Create Account</button>
-
-				</div>
-			</form>
+			</div>
 		</div>
 	</div>
 )
