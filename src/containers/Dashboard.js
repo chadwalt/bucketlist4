@@ -20,9 +20,9 @@ class Dashboard extends Component {
 
 	logout(e){
 		e.preventDefault()
-		
+
 		// Delete the token in the session Storage.
-		sessionStorage.removeItem("token")
+		sessionStorage.removeItem("auth_token")
 
 		this.setState({redirect: "logout"})
 	}
