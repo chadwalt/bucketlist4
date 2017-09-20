@@ -1,36 +1,39 @@
 import React from "react"
-import "./static/login.css" // Load the css
 
 const SignupForm = (props) => (
-	<div>
-		<button id="findpass">Bucket List App</button>
-		<div className="form signupForm">
-			<form action="/create_account" method="POST">
-				<div className="forceColor"></div>
-				<div className="topbar">
-					<div className="spanColor"></div>
-					<input type="text" className="input" name="first_name" onChange={props.onInput} id="first_name" placeholder="First Name" />
+	<div className="container">
+		<div className="row">
+			<div className="col-md-4 col-md-offset-4">
+				<div className="login-panel panel panel-default">
+					<div className="panel-heading">
+						<h3 className="panel-title">Please Sign Up</h3>
+					</div>
+					<div className="panel-body">
+						<form role="form">
+							<fieldset>
+								<div className="form-group">
+									<input className="form-control" placeholder="First Name" onChange={props.onInput} name="first_name" type="text" autoFocus />
+								</div>
+								<div className="form-group">
+									<input className="form-control" placeholder="Surname" onChange={props.onInput} name="sur_name" type="text"  />
+								</div>
+								<div className="form-group">
+									<input className="form-control" placeholder="Username" onChange={props.onInput} name="username" type="text"  />
+								</div>
+								<div className="form-group">
+									<input className="form-control" placeholder="Password" onChange={props.onInput} name="password" type="password"  />
+								</div>
+								<div className="form-group">
+									<input className="form-control" placeholder="E-mail" onChange={props.onInput} name="email" type="email"  />
+								</div>
+								
+								<a href="index.html" className="btn btn-lg btn-success btn-block"  onClick={props.onSubmit} >Create Account</a>
+								<a href="index.html" className="btn btn-lg btn-success btn-block" onClick={props.onLogin}>Already have an Account!</a>
+							</fieldset>
+						</form>
+					</div>
 				</div>
-				<div className="topbar">
-					<div className="spanColor"></div>
-					<input type="text" className="input" id="sur_name" onChange={props.onInput} name="sur_name" placeholder="SurName" />
-				</div>
-				<div className="topbar">
-					<div className="spanColor"></div>
-					<input type="text" className="input" name="username" onChange={props.onInput} id="username" placeholder="Username" />
-				</div>
-				<div className="topbar">
-					<div className="spanColor"></div>
-					<input type="password" className="input" name="password" onChange={props.onInput} id="password" placeholder="Password" />
-				</div>
-				<div className="topbar">
-					<div className="spanColor"></div>
-					<input type="email" className="input" name="email" id="email" onChange={props.onInput} placeholder="Email" />
-				</div>
-				<button className="submit" type="submit" onClick={props.onSubmit} id="submit">Create Account</button>
-				<br />
-				<button className="submit" onClick={props.onLogin} id="loginBtn">Already have an Account!</button>
-			</form>
+			</div>
 		</div>
 	</div>
 )
