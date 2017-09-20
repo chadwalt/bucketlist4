@@ -9,7 +9,7 @@ import "./static/main_app/metisMenu/metisMenu.min.css"
 import "./static/main_app/dist/css/sb-admin-2.css"
 import "./static/main_app/font-awesome/css/font-awesome.min.css"
 
-const Buckets = () => (
+const Buckets = (props) => (
 	<div id="wrapper">
 		<div className="row">
 			<nav className="navbar navbar-default navbar-static-top" role="navigation" style={{ marginBottom: 0 }}>
@@ -31,7 +31,7 @@ const Buckets = () => (
 						<ul className="dropdown-menu dropdown-user">
 
 							<li className="divider"></li>
-							<li><a href="/logout"><i className="fa fa-sign-out fa-fw"></i> Logout</a>
+							<li><a href="/logout" onClick={props.onLogout}><i className="fa fa-sign-out fa-fw"></i> Logout</a>
 							</li>
 						</ul>
 					</li>
@@ -61,7 +61,7 @@ const Buckets = () => (
 							<li>
 							</li>
 							<li>
-								<a href="/logout"><i className="fa fa-lock"></i> Logout</a>
+								<a href="/logout" onClick={props.onLogout}><i className="fa fa-lock"></i> Logout</a>
 							</li>
 						</ul>
 					</div>

@@ -14,18 +14,30 @@ class Dashboard extends Component {
 			bucket: "",
 			redirect: ""
 		}
+
+		this.logout = this.logout.bind(this)
+	}
+
+	logout(e){
+		e.preventDefault()
+		
+		// Delete the token in the session Storage.
+		sessionStorage.removeItem("token")
+
+		this.setState({redirect: "logout"})
 	}
 
 	render() {
 		const { redirect } = this.state
 
-		if (redirect === "logout") {
-			// Delete the token in the session Storage.
-			sessionStorage.removeItem("token")
+		if (redirect === "logout") {			
 			return (<Redirect to="/" />) // Redirect to login.
 		} else if (redirect === "" || sessionStorage.token) {
 			return (
-				<Buckets />
+				<Buckets
+					{...this.props}
+					onLogout={this.logout}
+				/>
 			)
 		}
 
