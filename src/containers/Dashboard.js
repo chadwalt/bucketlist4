@@ -12,31 +12,38 @@ class Dashboard extends Component {
 
 		this.state = { // Set the current state of this prop.
 			bucket: "",
-			redirect: ""
+			redirect: "",
 		}
 
 		this.logout = this.logout.bind(this)
+		this.addBucket = this.addBucket.bind(this)
+		
 	}
 
-	logout(e){
+	logout(e) {
 		e.preventDefault()
 
 		// Delete the token in the session Storage.
 		sessionStorage.removeItem("auth_token")
 
-		this.setState({redirect: "logout"})
+		this.setState({ redirect: "logout" })
+	}
+
+	addBucket() {
+
 	}
 
 	render() {
 		const { redirect } = this.state
 
-		if (redirect === "logout") {			
+		if (redirect === "logout") {
 			return (<Redirect to="/" />) // Redirect to login.
 		} else if (redirect === "" || sessionStorage.token) {
 			return (
 				<Buckets
-					{...this.props}
+					{...this.state}
 					onLogout={this.logout}
+					onAddBucket={this.addBucket}
 				/>
 			)
 		}
