@@ -7,6 +7,7 @@ import Buckets from "../components/buckets"
 import { Redirect } from "react-router"
 import AddBucketModal from "../components/add_bucket_model"
 import BaseUrl from "../config"
+import axios from "axios"
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -21,7 +22,7 @@ class Dashboard extends Component {
 		this.logout = this.logout.bind(this)
 		this.saveBucket = this.saveBucket.bind(this)
 		this.handleInput = this.handleInput.bind(this)
-		
+
 	}
 
 	/* This will handle getting input from the form.
@@ -42,13 +43,37 @@ class Dashboard extends Component {
 		this.setState({ redirect: "logout" })
 	}
 
+	/* Save the bucket 
+	* *****************/
 	saveBucket() {
-		
+
+		if (!this.state.bucket_name) {
+			alert("Please provide a name for the bucket.")
+			return
+		}
+		let auth_token = sessionStorage.auth_token // Get the auth_token from the session storage.
+
+		var params = new URLSearchParams() // Using the x-www-form-urlencoded.
+		params.append("name", this.state.bucket_name)
+
+		axios({
+			method: "POST",
+			url: BaseUrl + "bucketlists/",
+			data: params,
+			headers: { "Authorization": auth_token }
+		}).then(function (response) {
+			var data = response.data
+			if (data.success) {
+				alert("Bucketlist Saved successfully")
+			}
+
+		})
+
+
 	}
 
 	render() {
 		const { redirect } = this.state
-		console.log(BaseUrl)
 
 		if (redirect === "logout") {
 			return (<Redirect to="/" />) // Redirect to login.
@@ -65,7 +90,7 @@ class Dashboard extends Component {
 						onInput={this.handleInput}
 					/>
 				</div>
-				
+
 			)
 		}
 
