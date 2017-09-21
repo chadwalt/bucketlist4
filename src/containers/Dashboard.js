@@ -6,6 +6,7 @@ import React, { Component } from "react"
 import Buckets from "../components/buckets"
 import { Redirect } from "react-router"
 import AddBucketModal from "../components/add_bucket_model"
+import BaseUrl from "../config"
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -47,6 +48,7 @@ class Dashboard extends Component {
 
 	render() {
 		const { redirect } = this.state
+		console.log(BaseUrl)
 
 		if (redirect === "logout") {
 			return (<Redirect to="/" />) // Redirect to login.

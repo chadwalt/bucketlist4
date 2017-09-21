@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import axios from "axios"
 import SignupForm from "../components/signup_form"
 import { Redirect } from "react-router"
+import BaseUrl from "../config"
 
 class Signup extends Component {
 	constructor(props) {

@@ -5,6 +5,7 @@ import React, { Component } from "react"
 import axios from "axios"
 import LoginForm from "../components/login_form"
 import { Redirect } from "react-router"
+import BaseUrl from "../config"
 
 class Login extends Component {
 	constructor(props) {
