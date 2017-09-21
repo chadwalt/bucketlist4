@@ -1,10 +1,5 @@
 import React from "react"
 
-import "./static/main_app/bootstrap/css/bootstrap.min.css"
-import "./static/main_app/metisMenu/metisMenu.min.css"
-import "./static/main_app/dist/css/sb-admin-2.css"
-import "./static/main_app/font-awesome/css/font-awesome.min.css"
-
 const LoginForm = (props) => (
 	<div className="container">
 		<div className="row">
