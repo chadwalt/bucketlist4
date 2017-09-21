@@ -4,11 +4,6 @@
 
 import React from "react"
 
-import "./static/main_app/bootstrap/css/bootstrap.min.css"
-import "./static/main_app/metisMenu/metisMenu.min.css"
-import "./static/main_app/dist/css/sb-admin-2.css"
-import "./static/main_app/font-awesome/css/font-awesome.min.css"
-
 const Buckets = (props) => (
 	<div id="wrapper">
 		<div className="row">
@@ -71,12 +66,39 @@ const Buckets = (props) => (
 				<div id="page-wrapper">
 					<div className="row">
 						<div className="col-md-12">
-							<h1 className="page-header">Bucket List <button style={{ marginLeft: 100 }} type="button" id="add_bucket" className="btn btn-primary"> <i className="fa fa-edit"></i> Add</button></h1>
+							<h1 className="page-header">
+								Bucket List
+								<button style={{ marginLeft: 100 }} type="button" onClick={props.onAddBucket} id="add_bucket" data-toggle="modal" data-target="#myModal" className="btn btn-primary">
+									<i className="fa fa-edit"></i> Add
+								</button>
+							</h1>
 						</div>
 					</div>
 
 					<div className="row">
 						<div className="col-md-12">
+
+							<div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+								<div className="modal-dialog">
+									<div className="modal-content">
+										<div className="modal-header">
+											<button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h4 className="modal-title" id="myModalLabel">Modal title</h4>
+										</div>
+										<div className="modal-body">
+											t cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+										</div>
+										<div className="modal-footer">
+											<button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+											<button type="button" className="btn btn-primary">Save changes</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							
+
+
 							<div className="panel panel-default">
 								<div className="panel-heading">
 									<i className="fa fa-clock-o fa-fw"></i> Listing
