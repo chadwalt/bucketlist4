@@ -38,7 +38,7 @@ class Signup extends Component {
 
 		return (
 			<SignupForm
-				{...this.props}
+				{...this.state}
 				onInput={this.handle_input}
 				onSubmit={this.create_account}
 				onLogin={this.login}

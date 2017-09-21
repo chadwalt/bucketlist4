@@ -36,7 +36,7 @@ class Login extends Component {
 
 		return (
 			<LoginForm
-				{...this.props}
+				{...this.state}
 				onInput={this.handle_input}
 				onSubmit={this.login}
 				onSignup={this.create_account}
