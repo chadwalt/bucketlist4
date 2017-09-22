@@ -30,6 +30,7 @@ class Dashboard extends Component {
 		this.editBucket = this.editBucket.bind(this)
 		this.addBucket = this.addBucket.bind(this)
 		this.openDeleteBucket = this.openDeleteBucket.bind(this)
+		this.deleteBucket = this.deleteBucket.bind(this)
 	}
 
 	/* Get all the users buckets after the dom has rendered.
@@ -141,7 +142,19 @@ class Dashboard extends Component {
 	/* Delete the bucket from the application.
 	* ************************************* *****/
 	deleteBucket() {
-		
+
+		let auth_token = sessionStorage.auth_token // Get the auth_token from the session storage.
+
+		axios({
+			method: "DELETE",
+			url: BaseUrl + "bucketlists/" + this.state.bucket_id,
+			headers: { "Authorization": auth_token }
+		}).then(function (response) {
+			var data = response.data
+			if (data.success) {
+				alert(data.msg)
+			}
+		})
 	}
 
 	render() {
