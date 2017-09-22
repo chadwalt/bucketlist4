@@ -64,8 +64,8 @@ class Signup extends Component {
 			alert("Please provide all fields.")
 			return
 		}
-
-		axios.post("https://mybucketlist-api.herokuapp.com/auth/register", params).then(function (response) {
+		
+		axios.post(BaseUrl + "auth/register", params).then(function (response) {
 			let data = response.data
 			if (data.success) {
 				this.setState({

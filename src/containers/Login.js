@@ -60,7 +60,7 @@ class Login extends Component {
 			return
 		}
 
-		axios.post("https://mybucketlist-api.herokuapp.com/auth/login", params).then(function (response) {
+		axios.post(BaseUrl + "auth/login", params).then(function (response) {
 			let data = response.data
 			if (data.success) {
 				sessionStorage.setItem("auth_token", data.auth_token)
