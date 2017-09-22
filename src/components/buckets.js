@@ -4,6 +4,35 @@
 
 import React from "react"
 
+const table_buckets = (props) => (
+	props.buckets.map((value, index) => {
+		return (
+			<tr key={value.id}>
+				<td>{index + 1}</td>
+				<td>{value.name}</td>
+				<td><button type="button" onClick={() => props.onEdit(value.name, value.id)} data-toggle="modal" data-target="#myModal" className="btn btn-primary">Edit</button></td>
+				<td><button type="button" onClick={() => props.onOpenDelete(value.name, value.id)} className="btn btn-danger" data-toggle="modal" data-target="#myConfirmModal">Delete</button></td>
+			</tr>
+		)
+	})
+)
+
+const table_items = (props) => (
+	props.buckets.map((value, index) => {
+		return (
+			<tr key={value.id}>
+				<td>{index + 1}</td>
+				<td>{value.name}</td>
+				<td>{value.description}</td>
+				<td><button type="button" onClick={() => props.onEdit(value.name, value.id)} data-toggle="modal" data-target="#myModal" className="btn btn-primary">Edit</button></td>
+				<td><button type="button" onClick={() => props.onOpenDelete(value.name, value.id)} className="btn btn-danger" data-toggle="modal" data-target="#myConfirmModal">Delete</button></td>
+			</tr>
+		)
+	})
+)
+
+
+
 const Buckets = (props) => (
 	<div id="wrapper">
 		<div className="row">
@@ -98,16 +127,7 @@ const Buckets = (props) => (
 													</thead>
 													<tbody>
 														{
-															props.buckets.map((value, index) => {
-																return (
-																	<tr key={value.id}>
-																		<td>{index + 1}</td>
-																		<td>{value.name}</td>
-																		<td><button type="button" onClick={() => props.onEdit(value.name, value.id)} data-toggle="modal" data-target="#myModal" className="btn btn-primary">Edit</button></td>
-																		<td><button type="button" onClick={() => props.onOpenDelete(value.name, value.id)} className="btn btn-danger" data-toggle="modal" data-target="#myConfirmModal">Delete</button></td>
-																	</tr>
-																)
-															})
+															props.displayTable === "buckets" ? table_buckets(props) : table_items(props)
 														}
 
 													</tbody>
