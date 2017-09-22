@@ -67,7 +67,7 @@ const Buckets = (props) => (
 					<div className="row">
 						<div className="col-md-12">
 							<h1 className="page-header" style={{ fontSize: 32 }}>
-								Bucketlist
+								Bucket list
 								<button style={{ marginLeft: 100 }} type="button" onClick={props.onAdd} id="add_bucket" data-toggle="modal" data-target="#myModal" className="btn btn-primary">
 									<i className="fa fa-edit"></i> Add
 								</button>

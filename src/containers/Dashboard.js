@@ -22,7 +22,8 @@ class Dashboard extends Component {
 			page: 1,
 			rows: 10,
 			buckets: [],
-			model_message: ""
+			model_message: "",
+			isLoggedIn: false
 		}
 
 		this.logout = this.logout.bind(this)
@@ -32,6 +33,21 @@ class Dashboard extends Component {
 		this.addBucket = this.addBucket.bind(this)
 		this.openDeleteBucket = this.openDeleteBucket.bind(this)
 		this.deleteBucket = this.deleteBucket.bind(this)
+		this.checkLoggedStatus = this.checkLoggedStatus.bind(this)
+	}
+
+	componentWillMount(){
+		this.checkLoggedStatus()
+	}
+
+	/* Set the isLoggedIn to true if the token has been set.
+	* *******************************************************/
+	checkLoggedStatus(){
+		if (sessionStorage.auth_token){
+			this.setState({
+				isLoggedIn: true
+			})
+		}
 	}
 
 	/* Get all the users buckets after the dom has rendered.
@@ -199,6 +215,10 @@ class Dashboard extends Component {
 
 	render() {
 		const { redirect } = this.state
+
+		if (!this.state.isLoggedIn){
+			return (<Redirect to="/" />) // Redirect to login.
+		}
 
 		if (redirect === "logout") {
 			return (<Redirect to="/" />) // Redirect to login.
