@@ -61,9 +61,19 @@ class Dashboard extends Component {
 
 	logout(e) {
 		e.preventDefault()
+		let auth_token = sessionStorage.auth_token // Get the auth_token from the session storage.
 
-		// Delete the token in the session Storage.
-		sessionStorage.removeItem("auth_token")
+		axios({
+			method: "POST",
+			url: BaseUrl + "auth/logout",
+			headers: { "Authorization": auth_token }
+		}).then(function (response) {
+			var data = response.data
+			if (data.success) {
+				// Delete the token in the session Storage.
+				sessionStorage.removeItem("auth_token")
+			}
+		})
 
 		this.setState({ redirect: "logout" })
 	}
