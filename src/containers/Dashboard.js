@@ -5,7 +5,7 @@
 import React, { Component } from "react"
 import Buckets from "../components/buckets"
 import { Redirect } from "react-router"
-import AddBucketModal from "../components/add_bucket_model"
+import { AddBucketModal, DeleteModel } from "../components/add_bucket_model"
 import BaseUrl from "../config"
 import axios from "axios"
 
@@ -14,15 +14,38 @@ class Dashboard extends Component {
 		super(props)
 
 		this.state = { // Set the current state of this prop.
+			bucket_id: "",
 			bucket_name: "",
 			redirect: "",
-			model_title: "Add Bucket!"
+			model_title: "Add Bucket!",
+			page: 1,
+			rows: 10,
+			buckets: [],
+			model_message: ""
 		}
 
 		this.logout = this.logout.bind(this)
 		this.saveBucket = this.saveBucket.bind(this)
 		this.handleInput = this.handleInput.bind(this)
+		this.editBucket = this.editBucket.bind(this)
+		this.addBucket = this.addBucket.bind(this)
+		this.openDeleteBucket = this.openDeleteBucket.bind(this)
+	}
 
+	/* Get all the users buckets after the dom has rendered.
+	* ************************************************************** **/
+	componentDidMount() {
+		let auth_token = sessionStorage.auth_token // Get the auth_token from the session storage.
+
+		axios({
+			method: "GET",
+			url: BaseUrl + "bucketlists/?page=" + this.state.page + "&rows=" + this.state.rows,
+			headers: { "Authorization": auth_token }
+		}).then(function (response) {
+			this.setState({
+				buckets: response.data
+			})
+		}.bind(this))
 	}
 
 	/* This will handle getting input from the form.
@@ -51,14 +74,23 @@ class Dashboard extends Component {
 			alert("Please provide a name for the bucket.")
 			return
 		}
+
 		let auth_token = sessionStorage.auth_token // Get the auth_token from the session storage.
+		let req_method = "POST"
+		let end_point = "bucketlists/"
 
 		var params = new URLSearchParams() // Using the x-www-form-urlencoded.
 		params.append("name", this.state.bucket_name)
 
+		// Check if save or edit basing on the emptiness of the id in the state.
+		if (this.state.bucket_id) {
+			req_method = "PUT"
+			end_point = "bucketlists/" + this.state.bucket_id
+		}
+
 		axios({
-			method: "POST",
-			url: BaseUrl + "bucketlists/",
+			method: req_method,
+			url: BaseUrl + end_point,
 			data: params,
 			headers: { "Authorization": auth_token }
 		}).then(function (response) {
@@ -66,10 +98,50 @@ class Dashboard extends Component {
 			if (data.success) {
 				alert("Bucketlist Saved successfully")
 			}
-
 		})
+	}
 
+	/* Edit the bucket. 
+	* @param name => String. This holds the name of the bucket
+	* @param id => Int. This holds the id of the bucket.
+	* ******************************************************** */
+	editBucket(name, id) {
+		this.setState({
+			model_title: "Edit Bucket",
+			bucket_name: name,
+			bucket_id: id
+		})
+	}
 
+	/* Add the bucket. This clears the form and sets the Modal title
+	* ******************************************************** */
+	addBucket() {
+		this.setState({
+			model_title: "Add Bucket",
+			bucket_name: "",
+			bucket_id: ""
+		})
+	}
+
+	/* This will set the message the message for the model, title, id.
+	* @param name => String. This holds the name of the bucket.
+	* @param id => Int. This holds the id of the bucket.
+	* ************************************************************ */
+	openDeleteBucket(name, id) {
+		let message = "Are you sure you want to delete " + name + "?"
+
+		this.setState({
+			model_message: message,
+			bucket_id: id,
+			bucket_name: name,
+			model_title: "Delete Bucket!"
+		})
+	}
+
+	/* Delete the bucket from the application.
+	* ************************************* *****/
+	deleteBucket() {
+		
 	}
 
 	render() {
@@ -82,12 +154,21 @@ class Dashboard extends Component {
 				<div>
 					<Buckets
 						{...this.state}
+						buckets={this.state.buckets}
 						onLogout={this.logout}
+						onEdit={this.editBucket}
+						onAdd={this.addBucket}
 						onAddBucket={this.addBucket}
+						onOpenDelete={this.openDeleteBucket}
 					/>
+
 					<AddBucketModal title={this.state.model_title} bucketName={this.state.bucket_name}
 						onSaveBucket={this.saveBucket}
 						onInput={this.handleInput}
+					/>
+
+					<DeleteModel title={this.state.model_title} bucketName={this.state.bucket_name} message={this.state.model_message}
+						onDeleteBucket={this.deleteBucket}
 					/>
 				</div>
 
