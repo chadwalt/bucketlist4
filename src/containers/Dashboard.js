@@ -8,6 +8,7 @@ import { Redirect } from "react-router"
 import { AddBucketModal, DeleteModel } from "../components/add_bucket_model"
 import BaseUrl from "../config"
 import axios from "axios"
+import _ from "lodash"
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -153,8 +154,17 @@ class Dashboard extends Component {
 			var data = response.data
 			if (data.success) {
 				alert(data.msg)
+
+				let buckets = this.state.buckets
+				_.remove(buckets, {
+					"id": this.state.bucket_id
+				})
+
+				this.setState({
+					buckets: buckets
+				})
 			}
-		})
+		}.bind(this))
 	}
 
 	render() {
