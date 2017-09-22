@@ -66,9 +66,9 @@ const Buckets = (props) => (
 				<div id="page-wrapper">
 					<div className="row">
 						<div className="col-md-12">
-							<h1 className="page-header">
-								Bucket List
-								<button style={{ marginLeft: 100 }} type="button" id="add_bucket" data-toggle="modal" data-target="#myModal" className="btn btn-primary">
+							<h1 className="page-header" style={{ fontSize: 32 }}>
+								Bucketlist
+								<button style={{ marginLeft: 100 }} type="button" onClick={props.onAdd} id="add_bucket" data-toggle="modal" data-target="#myModal" className="btn btn-primary">
 									<i className="fa fa-edit"></i> Add
 								</button>
 							</h1>
@@ -78,7 +78,7 @@ const Buckets = (props) => (
 					<div className="row">
 						<div className="col-md-12">
 
-							
+
 
 							<div className="panel panel-default">
 								<div className="panel-heading">
@@ -97,12 +97,19 @@ const Buckets = (props) => (
 														</tr>
 													</thead>
 													<tbody>
-														<tr>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-														</tr>
+														{
+															props.buckets.map((value, index) => {
+																return (
+																	<tr key={value.id}>
+																		<td>{index + 1}</td>
+																		<td>{value.name}</td>
+																		<td><button type="button" onClick={() => props.onEdit(value.name, value.id)} data-toggle="modal" data-target="#myModal" className="btn btn-primary">Edit</button></td>
+																		<td><button type="button" onClick={() => props.onOpenDelete(value.name, value.id)} className="btn btn-danger" data-toggle="modal" data-target="#myConfirmModal">Delete</button></td>
+																	</tr>
+																)
+															})
+														}
+
 													</tbody>
 												</table>
 											</div>
