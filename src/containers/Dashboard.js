@@ -99,8 +99,28 @@ class Dashboard extends Component {
 			var data = response.data
 			if (data.success) {
 				alert("Bucketlist Saved successfully")
+
+				let buckets = this.state.buckets
+				let obj = {
+					id: data.id,
+					name: data.name,
+					date_created: data.date_created,
+					user_id: ""
+				}
+
+				if (req_method === "PUT") {
+					// On editing the bucket, remove it then replace it with the updated one.
+					_.remove(buckets, {
+						id: data.id
+					})
+				}
+
+				buckets.push(obj)
+				this.setState({
+					buckets: buckets
+				})
 			}
-		})
+		}.bind(this))
 	}
 
 	/* Edit the bucket. 
