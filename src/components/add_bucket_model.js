@@ -10,7 +10,7 @@ const AddBucketModal = (props) => (
 				</div>
 				<div className="modal-body">
 					<form>
-						<input name="bucket_name" id="bucket_name" className="form-control" value={props.bucketName} onChange={props.onInput}/>
+						<input name="bucket_name" id="bucket_name" className="form-control" value={props.bucketName} onChange={props.onInput} />
 					</form>
 				</div>
 				<div className="modal-footer">
@@ -66,5 +66,37 @@ const DeleteModel = (props) => (
 	</div>
 )
 
-export  {AddBucketModal, AlertModel, DeleteModel}
+const AddBucketItemModal = (props) => (
+	<div className="modal fade" id="bucketItemModal" tabIndex="-1" role="dialog" aria-labelledby="bucketItemModal" aria-hidden="false">
+		<div className="modal-dialog">
+			<div className="modal-content">
+				<div className="modal-header">
+					<button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 className="modal-title" id="myModalLabel">{props.title}</h4>
+				</div>
+				<div className="modal-body">
+					<form>
+						<div className="form-group">
+							<label >Name:</label>
+							<input name="bucket_name" id="bucket_name" className="form-control" value={props.bucketName} onChange={props.onInput} />
+						</div>
+
+						<div className="form-group">
+							<label >Description:</label>
+							<textarea className="form-control" id="description" name="description" value={props.description}  onChange={props.onInput} rows="3"></textarea>
+						</div>
+
+					</form>
+				</div>
+				<div className="modal-footer">
+					<button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" className="btn btn-primary" onClick={props.onSaveBucket} data-dismiss="modal">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+)
+
+export { AddBucketModal, AlertModel, DeleteModel, AddBucketItemModal }
 
