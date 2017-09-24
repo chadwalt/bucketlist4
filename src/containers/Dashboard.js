@@ -228,7 +228,9 @@ class Dashboard extends Component {
 					<Buckets
 						{...this.state}
 						buckets={this.state.buckets}
+						displayTable="buckets"
 						onLogout={this.logout}
+						modelId="#myModal"
 						onEdit={this.editBucket}
 						onAdd={this.addBucket}
 						onAddBucket={this.addBucket}

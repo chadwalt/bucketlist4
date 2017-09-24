@@ -6,11 +6,12 @@ import React from "react"
 
 const table_buckets = (props) => (
 	props.buckets.map((value, index) => {
+		let url = "bucketitems/" + value.id
 		return (
 			<tr key={value.id}>
 				<td>{index + 1}</td>
-				<td>{value.name}</td>
-				<td><button type="button" onClick={() => props.onEdit(value.name, value.id)} data-toggle="modal" data-target="#myModal" className="btn btn-primary">Edit</button></td>
+				<td><a href={url} >{value.name}</a></td>
+				<td><button type="button" onClick={() => props.onEdit(value.name, value.id)} data-toggle="modal" data-target={props.modelId} className="btn btn-primary">Edit</button></td>
 				<td><button type="button" onClick={() => props.onOpenDelete(value.name, value.id)} className="btn btn-danger" data-toggle="modal" data-target="#myConfirmModal">Delete</button></td>
 			</tr>
 		)
@@ -24,8 +25,8 @@ const table_items = (props) => (
 				<td>{index + 1}</td>
 				<td>{value.name}</td>
 				<td>{value.description}</td>
-				<td><button type="button" onClick={() => props.onEdit(value.name, value.id)} data-toggle="modal" data-target="#myModal" className="btn btn-primary">Edit</button></td>
-				<td><button type="button" onClick={() => props.onOpenDelete(value.name, value.id)} className="btn btn-danger" data-toggle="modal" data-target="#myConfirmModal">Delete</button></td>
+				<td><button type="button" onClick={() => props.onEdit(value.name, value.id, value.description, value.buckect_id)} data-toggle="modal" data-target={props.modelId} className="btn btn-primary">Edit</button></td>
+				<td><button type="button" onClick={() => props.onOpenDelete(value.name, value.id, value.buckect_id)} className="btn btn-danger" data-toggle="modal" data-target="#myConfirmModal">Delete</button></td>
 			</tr>
 		)
 	})
@@ -97,7 +98,7 @@ const Buckets = (props) => (
 						<div className="col-md-12">
 							<h1 className="page-header" style={{ fontSize: 32 }}>
 								Bucket list
-								<button style={{ marginLeft: 100 }} type="button" onClick={props.onAdd} id="add_bucket" data-toggle="modal" data-target="#myModal" className="btn btn-primary">
+								<button style={{ marginLeft: 100 }} type="button" onClick={props.onAddBucket} id="add_bucket" data-toggle="modal" data-target={props.modelId} className="btn btn-primary">
 									<i className="fa fa-edit"></i> Add
 								</button>
 							</h1>
