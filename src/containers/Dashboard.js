@@ -36,14 +36,14 @@ class Dashboard extends Component {
 		this.checkLoggedStatus = this.checkLoggedStatus.bind(this)
 	}
 
-	componentWillMount(){
+	componentWillMount() {
 		this.checkLoggedStatus()
 	}
 
 	/* Set the isLoggedIn to true if the token has been set.
 	* *******************************************************/
-	checkLoggedStatus(){
-		if (sessionStorage.auth_token){
+	checkLoggedStatus() {
+		if (sessionStorage.auth_token) {
 			this.setState({
 				isLoggedIn: true
 			})
@@ -60,6 +60,11 @@ class Dashboard extends Component {
 			url: BaseUrl + "bucketlists/?page=" + this.state.page + "&rows=" + this.state.rows,
 			headers: { "Authorization": auth_token }
 		}).then(function (response) {
+			// First check if the auth token is still vaild.
+			if (response.data.msg.includes("Invalid authentication token")) {
+				sessionStorage.removeItem("auth_token")
+			}
+
 			this.setState({
 				buckets: response.data
 			})
@@ -216,7 +221,7 @@ class Dashboard extends Component {
 	render() {
 		const { redirect } = this.state
 
-		if (!this.state.isLoggedIn){
+		if (!this.state.isLoggedIn) {
 			return (<Redirect to="/" />) // Redirect to login.
 		}
 

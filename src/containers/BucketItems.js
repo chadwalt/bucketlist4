@@ -63,6 +63,11 @@ class BucketItems extends Component {
 			url: BaseUrl + "bucketlists/" + parent_id + "/items/?page=" + this.state.page + "&rows=" + this.state.rows,
 			headers: { "Authorization": auth_token }
 		}).then(function (response) {
+			// First check if the auth token is still vaild.
+			if (response.data.msg.includes("Invalid authentication token")) {
+				sessionStorage.removeItem("auth_token")
+			}
+
 			this.setState({
 				bucketItems: response.data
 			})
@@ -232,7 +237,7 @@ class BucketItems extends Component {
 
 		if (redirect === "logout") {
 			return (<Redirect to="/" />) // Redirect to login.
-		} else if (redirect === "" || sessionStorage.token) {			
+		} else if (redirect === "" || sessionStorage.token) {
 			return (
 				<div>
 					<Buckets
