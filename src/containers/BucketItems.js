@@ -64,7 +64,7 @@ class BucketItems extends Component {
 			headers: { "Authorization": auth_token }
 		}).then(function (response) {
 			// First check if the auth token is still vaild.
-			if (response.data.msg.includes("Invalid authentication token")) {
+			if (response.data.hasOwnProperty("msg") &&  response.data.msg.includes("Invalid authentication token")) {
 				sessionStorage.removeItem("auth_token")
 			}
 
