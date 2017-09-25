@@ -36,6 +36,7 @@ class BucketItems extends Component {
 		this.openDeleteBucket = this.openDeleteBucket.bind(this)
 		this.deleteBucket = this.deleteBucket.bind(this)
 		this.checkLoggedStatus = this.checkLoggedStatus.bind(this)
+		this.searchBucket = this.searchBucket.bind(this)
 	}
 
 	componentWillMount() {
@@ -228,6 +229,25 @@ class BucketItems extends Component {
 		}.bind(this))
 	}
 
+	/* Search through the existing buckets.
+	* ********************************* ****/
+	searchBucket(e) {
+		let search = e.target.value
+		let auth_token = sessionStorage.auth_token // Get the auth_token from the session storage.
+
+		axios({
+			method: "GET",
+			url: BaseUrl + "bucketlists/" + this.state.parent_id + "/items/?q=" + search +  "&page=" + this.state.page + "&rows=" + this.state.rows,
+			headers: { "Authorization": auth_token }
+		}).then(function (response) {
+			var data = response.data
+
+			this.setState({
+				bucketItems: data
+			})
+		}.bind(this))
+	}
+
 	render() {
 		const { redirect } = this.state
 
@@ -249,6 +269,7 @@ class BucketItems extends Component {
 						modelId="#bucketItemModal"
 						onAddBucket={this.addBucket}
 						onOpenDelete={this.openDeleteBucket}
+						onSearch={this.searchBucket}
 					/>
 
 					<AddBucketItemModal title={this.state.model_title} bucketName={this.state.bucket_name} description={this.state.description}
