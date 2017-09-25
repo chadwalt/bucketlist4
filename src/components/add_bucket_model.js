@@ -10,6 +10,7 @@ const AddBucketModal = (props) => (
 				</div>
 				<div className="modal-body">
 					<form>
+						<label> Name: </label>
 						<input name="bucket_name" id="bucket_name" className="form-control" value={props.bucketName} onChange={props.onInput} />
 					</form>
 				</div>

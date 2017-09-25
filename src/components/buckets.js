@@ -71,7 +71,7 @@ const Buckets = (props) => (
 						<ul className="nav" id="side-menu">
 							<li className="sidebar-search">
 								<div className="input-group custom-search-form">
-									<input type="text" className="form-control" placeholder="Search..." />
+									<input type="text" className="form-control" placeholder="Search..." onChange={props.onSearch} />
 									<span className="input-group-btn">
 										<button className="btn btn-default" type="button">
 											<i className="fa fa-search"></i>
