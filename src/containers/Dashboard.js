@@ -20,7 +20,13 @@ class Dashboard extends Component {
 			redirect: "",
 			model_title: "Add Bucket!",
 			page: 1,
-			rows: 10,
+			pagination: {
+				"next_url": "",
+				"page": 1,
+				"pages": 0,
+				"prev_url": "",
+			},
+			rows: 8,
 			buckets: [],
 			model_message: "",
 			isLoggedIn: false,
@@ -35,6 +41,7 @@ class Dashboard extends Component {
 		this.deleteBucket = this.deleteBucket.bind(this)
 		this.checkLoggedStatus = this.checkLoggedStatus.bind(this)
 		this.searchBucket = this.searchBucket.bind(this)
+		this.movePage = this.movePage.bind(this)
 	}
 
 	componentWillMount() {
@@ -67,7 +74,8 @@ class Dashboard extends Component {
 			}
 
 			this.setState({
-				buckets: response.data
+				buckets: response.data.buckets,
+				pagination: response.data.pages
 			})
 		}.bind(this))
 	}
@@ -238,6 +246,30 @@ class Dashboard extends Component {
 		}.bind(this))
 	}
 
+	/* This will call the next or previous page.
+	* @param page => Int. The number denoting the page to navigate to.
+	***************************************************** ****************/
+	movePage(page) {
+		let auth_token = sessionStorage.auth_token // Get the auth_token from the session storage.
+
+		axios({
+			method: "GET",
+			url: BaseUrl + "bucketlists/?page=" + page + "&rows=" + this.state.rows,
+			headers: { "Authorization": auth_token }
+		}).then(function (response) {
+			// First check if the auth token is still vaild.
+			if (response.data.hasOwnProperty("msg") && response.data.msg.includes("Invalid authentication token")) {
+				sessionStorage.removeItem("auth_token")
+			}
+
+			this.setState({
+				buckets: response.data.buckets,
+				pagination: response.data.pages
+			})
+		}.bind(this))
+
+	}
+
 	render() {
 		const { redirect } = this.state
 
@@ -261,6 +293,8 @@ class Dashboard extends Component {
 						onAddBucket={this.addBucket}
 						onOpenDelete={this.openDeleteBucket}
 						onSearch={this.searchBucket}
+						pagination={this.state.pagination}
+						onMovePage={this.movePage}
 					/>
 
 					<AddBucketModal title={this.state.model_title} bucketName={this.state.bucket_name}

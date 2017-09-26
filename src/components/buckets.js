@@ -3,6 +3,7 @@
 * *******************************************/
 
 import React from "react"
+import Pagination from "./pagination"
 
 const table_buckets = (props) => (
 	props.buckets.map((value, index) => {
@@ -108,8 +109,6 @@ const Buckets = (props) => (
 					<div className="row">
 						<div className="col-md-12">
 
-
-
 							<div className="panel panel-default">
 								<div className="panel-heading">
 									<i className="fa fa-clock-o fa-fw"></i> Listing
@@ -136,6 +135,9 @@ const Buckets = (props) => (
 											</div>
 										</div>
 									</div>
+
+									<Pagination paginate={props.pagination} onMovePage={props.onMovePage}/>
+
 								</div>
 							</div>
 						</div>
