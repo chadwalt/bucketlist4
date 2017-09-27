@@ -43,8 +43,6 @@ const Pagination = (props) => (
 
 			{
 				CreatePages(props)
-
-
 			}
 
 

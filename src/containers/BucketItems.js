@@ -21,7 +21,13 @@ class BucketItems extends Component {
 			redirect: "",
 			model_title: "Add Bucket list Item!",
 			page: 1,
-			rows: 10,
+			rows: 8,
+			pagination: {
+				"next_url": "",
+				"page": 1,
+				"pages": 0,
+				"prev_url": "",
+			},
 			bucketItems: [],
 			model_message: "",
 			isLoggedIn: false,
@@ -37,6 +43,7 @@ class BucketItems extends Component {
 		this.deleteBucket = this.deleteBucket.bind(this)
 		this.checkLoggedStatus = this.checkLoggedStatus.bind(this)
 		this.searchBucket = this.searchBucket.bind(this)
+		this.movePage = this.movePage.bind(this)
 	}
 
 	componentWillMount() {
@@ -62,6 +69,7 @@ class BucketItems extends Component {
 		axios({
 			method: "GET",
 			url: BaseUrl + "bucketlists/" + parent_id + "/items/?page=" + this.state.page + "&rows=" + this.state.rows,
+			//url:BaseUrl + "bucketlists/30/items/?page=1&rows=8",
 			headers: { "Authorization": auth_token }
 		}).then(function (response) {
 			// First check if the auth token is still vaild.
@@ -70,7 +78,8 @@ class BucketItems extends Component {
 			}
 
 			this.setState({
-				bucketItems: response.data
+				bucketItems: response.data.buckets,
+				pagination: response.data.pages
 			})
 		}.bind(this))
 	}
@@ -243,10 +252,35 @@ class BucketItems extends Component {
 			var data = response.data
 
 			this.setState({
-				bucketItems: data
+				bucketItems: data.buckets
 			})
 		}.bind(this))
 	}
+
+	/* This will call the next or previous page.
+	* @param page => Int. The number denoting the page to navigate to.
+	***************************************************** ****************/
+	movePage(page) {
+		let auth_token = sessionStorage.auth_token // Get the auth_token from the session storage.
+		let parent_id = this.state.parent_id
+		axios({
+			method: "GET",
+			url: BaseUrl + "bucketlists/" + parent_id + "/items/?page=" + page + "&rows=" + this.state.rows,
+			headers: { "Authorization": auth_token }
+		}).then(function (response) {
+			// First check if the auth token is still vaild.
+			if (response.data.hasOwnProperty("msg") && response.data.msg.includes("Invalid authentication token")) {
+				sessionStorage.removeItem("auth_token")
+			}
+
+			this.setState({
+				bucketItems: response.data.buckets,
+				pagination: response.data.pages
+			})
+		}.bind(this))
+
+	}
+
 
 	render() {
 		const { redirect } = this.state
@@ -270,6 +304,8 @@ class BucketItems extends Component {
 						onAddBucket={this.addBucket}
 						onOpenDelete={this.openDeleteBucket}
 						onSearch={this.searchBucket}
+						pagination={this.state.pagination}
+						onMovePage={this.movePage}
 					/>
 
 					<AddBucketItemModal title={this.state.model_title} bucketName={this.state.bucket_name} description={this.state.description}

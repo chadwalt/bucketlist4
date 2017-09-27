@@ -241,7 +241,7 @@ class Dashboard extends Component {
 			var data = response.data
 
 			this.setState({
-				buckets: data
+				buckets: data.buckets,
 			})
 		}.bind(this))
 	}
