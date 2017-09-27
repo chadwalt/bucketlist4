@@ -4,6 +4,7 @@
 
 import React from "react"
 import Pagination from "./pagination"
+import { Alert } from 'reactstrap';
 
 const table_buckets = (props) => (
 	props.buckets.map((value, index) => {
@@ -103,6 +104,9 @@ const Buckets = (props) => (
 									<i className="fa fa-edit"></i> Add
 								</button>
 							</h1>
+							<Alert color={props.alert_type} isOpen={props.visible} toggle={props.dismissAlert}>
+								{props.message}
+							</Alert>
 						</div>
 					</div>
 

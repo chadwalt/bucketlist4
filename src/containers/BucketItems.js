@@ -31,7 +31,8 @@ class BucketItems extends Component {
 			bucketItems: [],
 			model_message: "",
 			isLoggedIn: false,
-			parent_id: window.location.pathname.substr(13)
+			parent_id: window.location.pathname.substr(13),
+			visible: false
 		}
 
 		this.logout = this.logout.bind(this)
@@ -44,6 +45,7 @@ class BucketItems extends Component {
 		this.checkLoggedStatus = this.checkLoggedStatus.bind(this)
 		this.searchBucket = this.searchBucket.bind(this)
 		this.movePage = this.movePage.bind(this)
+		this.onDismiss = this.onDismiss.bind(this)
 	}
 
 	componentWillMount() {
@@ -116,7 +118,11 @@ class BucketItems extends Component {
 	* *****************/
 	saveBucket() {
 		if (!this.state.bucket_name) {
-			alert("Please provide a name for the bucket.")
+			this.setState({
+				visible: true,
+				message: "Please provide all fields",
+				alert_type: "danger"
+			})
 			return
 		}
 
@@ -146,9 +152,6 @@ class BucketItems extends Component {
 			}
 		}).then(function (response) {
 			var data = response.data
-
-			alert("Bucket list Item Saved successfully")
-
 			let buckets = this.state.bucketItems
 			let obj = {
 				id: data.id,
@@ -167,7 +170,10 @@ class BucketItems extends Component {
 
 			buckets.push(obj)
 			this.setState({
-				bucketItems: buckets
+				bucketItems: buckets,
+				visible: true,
+				message: "Bucket list Item Saved successfully",
+				alert_type: "success"
 			})
 		}.bind(this))
 	}
@@ -211,6 +217,12 @@ class BucketItems extends Component {
 		})
 	}
 
+	/* Dismiss the bootsrap alert.
+	* *********************************/
+	onDismiss() {
+		this.setState({ visible: false })
+	}
+
 	/* Delete the bucket from the application.
 	* ************************************* *****/
 	deleteBucket() {
@@ -224,15 +236,16 @@ class BucketItems extends Component {
 		}).then(function (response) {
 			var data = response.data
 			if (data.success) {
-				alert(data.msg)
-
 				let buckets = this.state.bucketItems
 				_.remove(buckets, {
 					"id": this.state.bucket_id
 				})
 
 				this.setState({
-					bucketItems: buckets
+					bucketItems: buckets,
+					visible: true,
+					message: this.state.bucket_name + " has been deleted successfully",
+					alert_type: "success"
 				})
 			}
 		}.bind(this))
@@ -306,6 +319,7 @@ class BucketItems extends Component {
 						onSearch={this.searchBucket}
 						pagination={this.state.pagination}
 						onMovePage={this.movePage}
+						dismissAlert={this.onDismiss}
 					/>
 
 					<AddBucketItemModal title={this.state.model_title} bucketName={this.state.bucket_name} description={this.state.description}

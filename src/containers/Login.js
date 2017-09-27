@@ -6,6 +6,8 @@ import axios from "axios"
 import LoginForm from "../components/login_form"
 import { Redirect } from "react-router"
 import BaseUrl from "../config"
+import { Alert } from 'reactstrap';
+
 
 class Login extends Component {
 	constructor(props) {
@@ -13,11 +15,13 @@ class Login extends Component {
 		this.state = {
 			username: "",
 			password: "",
-			redirect: ""
+			redirect: "",
+			visible: false
 		}
 		this.create_account = this.create_account.bind(this)
 		this.handle_input = this.handle_input.bind(this)
 		this.login = this.login.bind(this)
+		this.onDismiss = this.onDismiss.bind(this)
 	}
 
 	handle_input(event) {
@@ -36,13 +40,23 @@ class Login extends Component {
 		}
 
 		return (
-			<LoginForm
-				{...this.state}
-				onInput={this.handle_input}
-				onSubmit={this.login}
-				onSignup={this.create_account}
-			/>
+			<div>
+				<Alert color={this.state.alert_type} isOpen={this.state.visible} toggle={this.onDismiss}>
+					<center>{this.state.message}</center>
+				</Alert>
+
+				<LoginForm
+					{...this.state}
+					onInput={this.handle_input}
+					onSubmit={this.login}
+					onSignup={this.create_account}
+				/>
+			</div>
 		)
+	}
+
+	onDismiss() {
+		this.setState({ visible: false })
 	}
 
 	/* This will handle loggin the user.
@@ -55,8 +69,13 @@ class Login extends Component {
 		params.append("username", this.state.username)
 		params.append("password", this.state.password)
 
-		if (this.state.username === "" || this.state.password === "") {
-			alert("Please provide all fields.")
+		if (this.state.username == "" || this.state.password == "") {
+			this.setState({
+				visible: true,
+				message: "Please provide all the required fields.",
+				alert_type: "danger"
+			})
+
 			return
 		}
 
@@ -68,7 +87,11 @@ class Login extends Component {
 					redirect: "dashboard"
 				})
 			} else {
-				alert(data.message)
+				this.setState({
+					visible: true,
+					message: data.message,
+					alert_type: "danger"
+				})
 			}
 		}.bind(this))
 	}

@@ -30,6 +30,7 @@ class Dashboard extends Component {
 			buckets: [],
 			model_message: "",
 			isLoggedIn: false,
+			visible: false
 		}
 
 		this.logout = this.logout.bind(this)
@@ -42,6 +43,7 @@ class Dashboard extends Component {
 		this.checkLoggedStatus = this.checkLoggedStatus.bind(this)
 		this.searchBucket = this.searchBucket.bind(this)
 		this.movePage = this.movePage.bind(this)
+		this.onDismiss = this.onDismiss.bind(this)
 	}
 
 	componentWillMount() {
@@ -108,6 +110,12 @@ class Dashboard extends Component {
 		this.setState({ redirect: "logout" })
 	}
 
+	/* Dismiss the bootsrap alert.
+	* *********************************/
+	onDismiss() {
+		this.setState({ visible: false })
+	}
+
 	/* Save the bucket 
 	* *****************/
 	saveBucket() {
@@ -138,8 +146,6 @@ class Dashboard extends Component {
 		}).then(function (response) {
 			var data = response.data
 			if (data.success) {
-				alert("Bucketlist Saved successfully")
-
 				let buckets = this.state.buckets
 				let obj = {
 					id: data.id,
@@ -157,7 +163,10 @@ class Dashboard extends Component {
 
 				buckets.push(obj)
 				this.setState({
-					buckets: buckets
+					buckets: buckets,
+					visible: true,
+					message: "Bucketlist Saved successfully",
+					alert_type: "success"
 				})
 			}
 		}.bind(this))
@@ -213,15 +222,16 @@ class Dashboard extends Component {
 		}).then(function (response) {
 			var data = response.data
 			if (data.success) {
-				alert(data.msg)
-
 				let buckets = this.state.buckets
 				_.remove(buckets, {
 					"id": this.state.bucket_id
 				})
 
 				this.setState({
-					buckets: buckets
+					buckets: buckets,
+					visible: true,
+					message: this.state.bucket_name + " has been deleted successfully",
+					alert_type: "success"
 				})
 			}
 		}.bind(this))
@@ -295,6 +305,7 @@ class Dashboard extends Component {
 						onSearch={this.searchBucket}
 						pagination={this.state.pagination}
 						onMovePage={this.movePage}
+						dismissAlert={this.onDismiss}
 					/>
 
 					<AddBucketModal title={this.state.model_title} bucketName={this.state.bucket_name}
