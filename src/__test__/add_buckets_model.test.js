@@ -1,8 +1,8 @@
 import React from "react"
 import { AddBucketModal, AlertModel, DeleteModel, AddBucketItemModal } from "../components/add_bucket_model"
 import { configure } from "enzyme"
-import Adapter from "enzyme-adapter-react-15"
-configure({ adapter: new Adapter() })
+
+import "./setup"
 
 import { shallow } from "enzyme"
 
