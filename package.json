@@ -22,16 +22,20 @@
     "react-router-dom": "^4.1.2",
     "react-router-redux": "^4.0.8",
     "react-scripts": "1.0.10",
+    "react-test-renderer": "^15.5.4",
     "react-toastify": "^2.0.0",
     "reactstrap": "^4.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "jest",
+    "coverage": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/components/*js --collectCoverageFrom=src/containers/*js",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-15": "^1.0.0",
     "eslint": "^4.4.1",
     "eslint-plugin-react": "^7.1.0"
   }
