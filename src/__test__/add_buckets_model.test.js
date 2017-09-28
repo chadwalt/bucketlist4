@@ -1,9 +1,6 @@
 import React from "react"
 import { AddBucketModal, AlertModel, DeleteModel, AddBucketItemModal } from "../components/add_bucket_model"
-import { configure } from "enzyme"
-
 import "./setup"
-
 import { shallow } from "enzyme"
 
 const props = {
