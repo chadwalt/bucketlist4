@@ -1,11 +1,18 @@
 import React from "react"
 import Buckets from "../components/buckets"
 import "./setup"
+import renderer from 'react-test-renderer';
 
 import { shallow } from "enzyme"
 
 const props = {
 	displayTable: "buckets",
+	pagination: {
+		"next_url": "",
+		"page": 1,
+		"pages": 0,
+		"prev_url": "",
+	},
 	buckets: [{
 		date_created: "Fri, 22 Sep 2017 11:09:55 GMT",
 		id: 30,
@@ -27,7 +34,7 @@ const itemsProps = {
 		name: "Going to every place in mombosa",
 		user_id: 38,
 		description: "mkop",
-		bucket_id: 3
+		bucket_id: 3,
 	}, {
 		date_created: "Fri, 22 Sep 2017 18:09:55 GMT",
 		id: 31,
@@ -43,6 +50,10 @@ const bucket_comp = shallow(<Buckets {...props} />)
 const bucketitems_comp = shallow(<Buckets {...itemsProps} />)
 
 describe("It should render the Buckets component", () => {
+	it("It renders correctly", () =>{
+		const rendered = renderer.create(<Buckets {...props} />)
+		expect(rendered.toJSON()).toMatchSnapshot()
+	})
 	it("It has 20 divs and renders the bucket list.", () => {
 		expect(bucket_comp.find("div").length).toEqual(20)
 	})

@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login Snapshot renders correctly 1`] = `
+<nav
+  aria-label="Page navigation"
+>
+  <ul
+    className="pagination"
+  >
+    
+    <li
+      className="page-item"
+      onClick={[Function]}
+    >
+      <a
+        className="page-link"
+      >
+        1
+      </a>
+    </li>
+    <li
+      className="page-item"
+      onClick={[Function]}
+    >
+      <a
+        className="page-link"
+      >
+        2
+      </a>
+    </li>
+    <li
+      className="page-item"
+      onClick={[Function]}
+    >
+      <a
+        className="page-link"
+      >
+        3
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+`;
