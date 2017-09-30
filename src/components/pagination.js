@@ -32,7 +32,7 @@ const Pagination = (props) => (
 		<ul className="pagination">
 			{props.paginate.prev_url &&
 
-				<li className="page-item" onClick={() => props.onMovePage(props.paginate.page - 1)}>
+				<li className="page-item" id="prev_page" onClick={() => props.onMovePage(props.paginate.page - 1)}>
 					<a className="page-link" aria-label="Previous">
 						<span aria-hidden="true">&laquo;</span>
 						<span className="sr-only">Previous</span>
@@ -48,7 +48,7 @@ const Pagination = (props) => (
 
 			{props.paginate.next_url &&
 
-				<li className="page-item" onClick={() => props.onMovePage(props.paginate.page + 1)}>
+				<li className="page-item" id="next_page" onClick={() => props.onMovePage(props.paginate.page + 1)}>
 					<a className="page-link" aria-label="Next">
 						<span aria-hidden="true">&raquo;</span>
 						<span className="sr-only">Next</span>
