@@ -10,7 +10,7 @@ describe("Login Snapshot", () => {
 		const props = {
 			paginate: {
 				prev_url: "",
-				pages: 3,
+				pages: 1,
 				next_url: ""
 			}
 		}
@@ -30,6 +30,7 @@ describe("Login Snapshot", () => {
 		const element = mount(<Pagination {...props} onMovePage={mockFunction} />)
 		element.find("#prev_page").simulate("click")
 		element.find("#next_page").simulate("click")
+		element.find("#page-1").simulate("click")
 		expect(mockFunction).toHaveBeenCalled()
 	})
 
