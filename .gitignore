@@ -32,3 +32,4 @@ chrome-user-data
 *react*min*.js
 !src/node_modules
 __snapshots__/
+__tests__/__snapshots__/
