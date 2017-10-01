@@ -18,7 +18,7 @@ const CreatePages = (props) => {
 
 		let elements = links.map((value, index) => {
 			let pag = index + 1
-			return (<li key={index} className="page-item" onClick={() => props.onMovePage(pag)}><a className="page-link" >{pag}</a></li>)
+			return (<li key={index} id={"page-" + pag} className="page-item" onClick={() => props.onMovePage(pag)}><a className="page-link" >{pag}</a></li>)
 		})
 
 		return elements
