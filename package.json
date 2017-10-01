@@ -28,11 +28,19 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "jest",
+    "coverage": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/components/*js --collectCoverageFrom=src/containers/*js",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.9.0",
+    "coveralls": "^2.13.2",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-15": "^1.0.0",
     "eslint": "^4.4.1",
-    "eslint-plugin-react": "^7.1.0"
+    "eslint-plugin-react": "^7.1.0",
+    "mock-local-storage": "^1.0.5",
+    "moxios": "^0.4.0",
+    "react-test-renderer": "^15.5.4"
   }
 }
