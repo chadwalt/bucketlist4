@@ -10,19 +10,38 @@ import "./setup"
 import { shallow, mount } from "enzyme"
 
 describe("Testing the Dashboard container", () => {
-	it("It calls the onclick event for the edit of the bucket.", () => {
-		const mock = MockAdapter(axios)
+	//const mock = MockAdapter(axios)
+	const mockFunction = jest.fn()
 
+	const props = {
+		displayTable:"buckets",
+		onLogout: mockFunction,
+		modelId: "#myModal",
+		onEdit: mockFunction,
+		onAdd: mockFunction,
+		onAddBucket: mockFunction,
+		onOpenDelete: mockFunction,
+		onSearch: mockFunction,
+		pagination: mockFunction,
+		onMovePage: mockFunction,
+		dismissAlert: mockFunction
+	}
+
+	it("It calls the onclick event for the edit of the bucket.", () => {
 		const dashboard = mount(
 			<StaticRouter context={{}}>
-				<Dashboard />
+				<Dashboard {...props}/>
 			</StaticRouter>
 		)
+
 		expect(dashboard).toHaveLength(1)
 	})
 
 	it("renders correctly", () => {
-		const rendered = renderer.create(<Dashboard />)
+		const rendered = renderer.create(
+			<StaticRouter context={{}}>
+				<Dashboard {...props}/>
+			</StaticRouter>)
 		expect(rendered.toJSON()).toMatchSnapshot()
 	})
 
