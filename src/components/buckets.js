@@ -13,8 +13,8 @@ const table_buckets = (props) => (
 			<tr key={value.id}>
 				<td>{index + 1}</td>
 				<td><a href={url} >{value.name}</a></td>
-				<td><button type="button" onClick={() => props.onEdit(value.name, value.id)} data-toggle="modal" data-target={props.modelId} className="btn btn-primary">Edit</button></td>
-				<td><button type="button" onClick={() => props.onOpenDelete(value.name, value.id)} className="btn btn-danger" data-toggle="modal" data-target="#myConfirmModal">Delete</button></td>
+				<td><button id="editBucket" type="button" onClick={() => props.onEdit(value.name, value.id)} data-toggle="modal" data-target={props.modelId} className="btn btn-primary">Edit</button></td>
+				<td><button id="deleteBucket" type="button" onClick={() => props.onOpenDelete(value.name, value.id)} className="btn btn-danger" data-toggle="modal" data-target="#myConfirmModal">Delete</button></td>
 			</tr>
 		)
 	})
@@ -27,8 +27,8 @@ const table_items = (props) => (
 				<td>{index + 1}</td>
 				<td>{value.name}</td>
 				<td>{value.description}</td>
-				<td><button type="button" onClick={() => props.onEdit(value.name, value.id, value.description, value.buckect_id)} data-toggle="modal" data-target={props.modelId} className="btn btn-primary">Edit</button></td>
-				<td><button type="button" onClick={() => props.onOpenDelete(value.name, value.id, value.buckect_id)} className="btn btn-danger" data-toggle="modal" data-target="#myConfirmModal">Delete</button></td>
+				<td><button id="editBucketItem" type="button" onClick={() => props.onEdit(value.name, value.id, value.description, value.buckect_id)} data-toggle="modal" data-target={props.modelId} className="btn btn-primary">Edit</button></td>
+				<td><button id="deleteBucketItem" type="button" onClick={() => props.onOpenDelete(value.name, value.id, value.buckect_id)} className="btn btn-danger" data-toggle="modal" data-target="#myConfirmModal">Delete</button></td>
 			</tr>
 		)
 	})
