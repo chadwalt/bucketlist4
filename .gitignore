@@ -65,3 +65,4 @@ node_modules/
 #vscode
 .vscode/
 
+.coveralls.yml
