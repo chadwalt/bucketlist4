@@ -70,15 +70,15 @@ class BucketItems extends Component {
 
 		axios({
 			method: "GET",
-			url: BaseUrl + "bucketlists/" + parent_id + "/items/?page=" + this.state.page + "&rows=" + this.state.rows,
-			//url:BaseUrl + "bucketlists/30/items/?page=1&rows=8",
+			// url: `${BaseUrl}bucketlists/${parent_id}/items/?page=${this.state.page}&rows=${this.state.rows}`,
+			url: BaseUrl + "bucketlists/" + parent_id + "/items/?page=" + this.state.page + "&rows=" + this.state.rows,			
 			headers: { "Authorization": auth_token }
 		}).then(function (response) {
 			// First check if the auth token is still vaild.
 			if (response.data.hasOwnProperty("msg") &&  response.data.msg.includes("Invalid authentication token")) {
 				sessionStorage.removeItem("auth_token")
 			}
-
+			console.log('------+++++++--------');
 			this.setState({
 				bucketItems: response.data.buckets,
 				pagination: response.data.pages

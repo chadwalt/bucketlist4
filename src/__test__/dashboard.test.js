@@ -1,18 +1,20 @@
 import React from "react"
 import Buckets from "../components/buckets"
-import renderer from "react-test-renderer";
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
-import { StaticRouter } from "react-router";
+import renderer from "react-test-renderer"
+import axios from "axios"
+import MockAdapter from "axios-mock-adapter"
+import { StaticRouter } from "react-router"
 import Dashboard from "../containers/Dashboard"
 import "./setup"
+import BaseUrl from "../config"
 
 import { shallow, mount } from "enzyme"
-
+const mock = new MockAdapter(axios)
+mock.onGet(BaseUrl+"bucketlists/?page=1&rows=8").reply(200,{})
 describe("Testing the Dashboard container", () => {
-	//const mock = MockAdapter(axios)
+	
 	const mockFunction = jest.fn()
-
+	// jest.mock("axios")
 	const props = {
 		displayTable:"buckets",
 		onLogout: mockFunction,
@@ -33,7 +35,6 @@ describe("Testing the Dashboard container", () => {
 				<Dashboard {...props}/>
 			</StaticRouter>
 		)
-
 		expect(dashboard).toHaveLength(1)
 	})
 
@@ -44,6 +45,5 @@ describe("Testing the Dashboard container", () => {
 			</StaticRouter>)
 		expect(rendered.toJSON()).toMatchSnapshot()
 	})
-
 
 })
