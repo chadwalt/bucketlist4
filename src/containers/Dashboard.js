@@ -67,7 +67,7 @@ class Dashboard extends Component {
 
 		axios({
 			method: "GET",
-			url: BaseUrl + "bucketlists/?page=" + this.state.page + "&rows=" + this.state.rows,
+			url: BaseUrl + `bucketlists/?page=${this.state.page}&rows=${this.state.rows}`,
 			headers: { "Authorization": auth_token }
 		}).then(function (response) {
 			// First check if the auth token is still vaild.
