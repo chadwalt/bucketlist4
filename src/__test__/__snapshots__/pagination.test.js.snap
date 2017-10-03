@@ -10,32 +10,13 @@ exports[`Login Snapshot renders correctly 1`] = `
     
     <li
       className="page-item"
+      id="page-1"
       onClick={[Function]}
     >
       <a
         className="page-link"
       >
         1
-      </a>
-    </li>
-    <li
-      className="page-item"
-      onClick={[Function]}
-    >
-      <a
-        className="page-link"
-      >
-        2
-      </a>
-    </li>
-    <li
-      className="page-item"
-      onClick={[Function]}
-    >
-      <a
-        className="page-link"
-      >
-        3
       </a>
     </li>
     

@@ -45,11 +45,6 @@ const bucketitems_comp = shallow(<Buckets {...itemsProps} />)
 
 describe("It should render the Buckets component", () => {
 
-	it("It renders correctly", () => {
-		const rendered = renderer.create(<Buckets {...props} />)
-		expect(rendered.toJSON()).toMatchSnapshot()
-	})
-
 	it("It has 20 divs and renders the bucket list.", () => {
 		expect(bucket_comp.find("div").length).toEqual(20)
 	})
