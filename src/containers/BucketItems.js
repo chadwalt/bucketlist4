@@ -13,7 +13,7 @@ import _ from "lodash"
 class BucketItems extends Component {
 	constructor(props) {
 		super(props)
-
+		let parent_id = window.location.pathname.substr(13) ? window.location.pathname.substr(13) : 1
 		this.state = { // Set the current state of this prop.
 			bucket_id: "",
 			bucket_name: "",
@@ -31,10 +31,9 @@ class BucketItems extends Component {
 			bucketItems: [],
 			model_message: "",
 			isLoggedIn: false,
-			parent_id: window.location.pathname.substr(13),
+			parent_id: parent_id,
 			visible: false
 		}
-
 		this.logout = this.logout.bind(this)
 		this.saveBucket = this.saveBucket.bind(this)
 		this.handleInput = this.handleInput.bind(this)
@@ -67,10 +66,9 @@ class BucketItems extends Component {
 	componentDidMount() {
 		let auth_token = sessionStorage.auth_token // Get the auth_token from the session storage.
 		let parent_id = this.state.parent_id
-
+		
 		axios({
 			method: "GET",
-			// url: `${BaseUrl}bucketlists/${parent_id}/items/?page=${this.state.page}&rows=${this.state.rows}`,
 			url: BaseUrl + "bucketlists/" + parent_id + "/items/?page=" + this.state.page + "&rows=" + this.state.rows,			
 			headers: { "Authorization": auth_token }
 		}).then(function (response) {
@@ -78,7 +76,6 @@ class BucketItems extends Component {
 			if (response.data.hasOwnProperty("msg") &&  response.data.msg.includes("Invalid authentication token")) {
 				sessionStorage.removeItem("auth_token")
 			}
-			console.log('------+++++++--------');
 			this.setState({
 				bucketItems: response.data.buckets,
 				pagination: response.data.pages
@@ -256,7 +253,7 @@ class BucketItems extends Component {
 	searchBucket(e) {
 		let search = e.target.value
 		let auth_token = sessionStorage.auth_token // Get the auth_token from the session storage.
-
+		
 		axios({
 			method: "GET",
 			url: BaseUrl + "bucketlists/" + this.state.parent_id + "/items/?q=" + search +  "&page=" + this.state.page + "&rows=" + this.state.rows,
