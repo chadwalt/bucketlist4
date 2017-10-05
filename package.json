@@ -23,7 +23,8 @@
     "react-router-redux": "^4.0.8",
     "react-scripts": "1.0.10",
     "react-toastify": "^2.0.0",
-    "reactstrap": "^4.8.0"
+    "reactstrap": "^4.8.0",
+    "url-search-params-polyfill": "^2.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
