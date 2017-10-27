@@ -15,7 +15,6 @@ class Signup extends Component {
 			email: "",
 			redirect: false
 		}
-		
 		this.create_account = this.create_account.bind(this)
 		this.handle_input = this.handle_input.bind(this)
 		this.login = this.login.bind(this)
@@ -64,7 +63,7 @@ class Signup extends Component {
 			alert("Please provide all fields.")
 			return
 		}
-		
+
 		axios.post(BaseUrl + "auth/register", params).then(function (response) {
 			let data = response.data
 			if (data.success) {
