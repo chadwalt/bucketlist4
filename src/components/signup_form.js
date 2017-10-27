@@ -6,7 +6,7 @@ const SignupForm = (props) => (
 			<div className="col-md-4 col-md-offset-4">
 				<div className="login-panel panel panel-default">
 					<div className="panel-heading">
-						<h3 className="panel-title">Please Sign Up</h3>
+						<h3 className="panel-title">Sign Up</h3>
 					</div>
 					<div className="panel-body">
 						<form role="form">
@@ -26,9 +26,8 @@ const SignupForm = (props) => (
 								<div className="form-group">
 									<input className="form-control" placeholder="E-mail" onChange={props.onInput} name="email" type="email"  />
 								</div>
-								
-								<a href="index.html" className="btn btn-lg btn-success btn-block"  onClick={props.onSubmit} >Create Account</a>
-								<a href="index.html" className="btn btn-lg btn-success btn-block" onClick={props.onLogin}>Already have an Account!</a>
+								<a href="index.html" className="btn btn-lg btn-primary btn-block"  onClick={props.onSubmit} >Create Account</a>
+								<a href="index.html" className="btn btn-lg btn-primary btn-block" onClick={props.onLogin}>Already have an Account!</a>
 							</fieldset>
 						</form>
 					</div>
