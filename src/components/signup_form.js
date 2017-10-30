@@ -1,5 +1,5 @@
 import React from "react"
-import { Alert } from 'reactstrap';
+import { Alert } from "reactstrap"
 
 const SignupForm = (props) => (
 	<div className="container">

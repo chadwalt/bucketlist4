@@ -3,6 +3,7 @@ import axios from "axios"
 import SignupForm from "../components/signup_form"
 import { Redirect } from "react-router"
 import BaseUrl from "../config"
+import wallpaper from "../imgs/city-wallpaper-18.jpg"
 
 class Signup extends Component {
 	state = {
@@ -53,10 +54,17 @@ class Signup extends Component {
 			let data = response.data
 			if (data.success) {
 				this.setState({
+					visible: true,
+					alert_type: "primary",
+					message: data.msg,
 					redirect: true
 				})
 			} else {
-				alert(data.message)
+				this.setState({
+					visible: true,
+					message: data.msg,
+					alert_type: "danger"
+				})
 			}
 		}.bind(this))
 	}
@@ -76,6 +84,15 @@ class Signup extends Component {
 		this.setState({
 			redirect: true
 		})
+	}
+
+	componentDidMount() {
+		// Set the background image.
+		document.body.style.backgroundImage = `url(${wallpaper}`
+	}
+
+	componentWillUnmount() {
+		document.body.style.backgroundImage = "";
 	}
 
 	render() {
