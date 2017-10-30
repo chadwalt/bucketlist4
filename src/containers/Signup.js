@@ -11,7 +11,10 @@ class Signup extends Component {
 		username: "",
 		password: "",
 		email: "",
-		redirect: false
+		redirect: false,
+		alert_type: "primary",
+		visible: false,
+		message: ""
 	}
 
 	/* This will handle getting input from the form.
@@ -37,7 +40,12 @@ class Signup extends Component {
 		params.append("email", this.state.email)
 
 		if (this.state.username === "" || this.state.password === "" || this.state.first_name === "" || this.state.sur_name === "") {
-			alert("Please provide all fields.")
+			// Update the state to show the error.
+			this.setState({
+				visible: true,
+				message: "Please provide all the required fields.",
+				alert_type: "danger"
+			})
 			return
 		}
 
@@ -51,6 +59,12 @@ class Signup extends Component {
 				alert(data.message)
 			}
 		}.bind(this))
+	}
+
+	/* Dismiss the model for alert from the interface.
+	* *************************************************/
+	onDismiss = () => {
+		this.setState({ visible: false })
 	}
 
 	/* This will handle navigating the user to the login page.
@@ -77,6 +91,7 @@ class Signup extends Component {
 				onInput={this.handle_input}
 				onSubmit={this.create_account}
 				onLogin={this.login}
+				onDismissModal={this.onDismiss}
 			/>
 		)
 	}
