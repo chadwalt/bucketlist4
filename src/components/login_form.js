@@ -1,4 +1,5 @@
 import React from "react"
+import { Alert } from "reactstrap"
 
 const LoginForm = (props) => (
 	<div className="container">
@@ -11,6 +12,9 @@ const LoginForm = (props) => (
 					<div className="panel-body">
 						<form role="form">
 							<fieldset>
+								<Alert color={props.alert_type} isOpen={props.visible} toggle={props.onDismissModal}>
+									<center>{props.message}</center>
+								</Alert>
 								<div className="form-group">
 									<input className="form-control" placeholder="Username" onChange={props.onInput} name="username" type="text" autoFocus />
 								</div>

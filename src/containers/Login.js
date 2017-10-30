@@ -6,7 +6,6 @@ import axios from "axios"
 import LoginForm from "../components/login_form"
 import { Redirect } from "react-router"
 import BaseUrl from "../config"
-import { Alert } from "reactstrap"
 import PropTypes from "prop-types"
 
 
@@ -15,7 +14,8 @@ class Login extends Component {
 		username: "",
 		password: "",
 		redirect: "",
-		visible: false
+		visible: false,
+		alert_type: "primary"
 	}
 
 	/* This will handle inpput provided by the user.
@@ -90,18 +90,13 @@ class Login extends Component {
 		}
 
 		return (
-			<div>
-				<Alert color={this.state.alert_type} isOpen={this.state.visible} toggle={this.onDismiss}>
-					<center>{this.state.message}</center>
-				</Alert>
-
-				<LoginForm
-					{...this.state}
-					onInput={this.handle_input}
-					onSubmit={this.login}
-					onSignup={this.create_account}
-				/>
-			</div>
+			<LoginForm
+				{...this.state}
+				onInput={this.handle_input}
+				onSubmit={this.login}
+				onSignup={this.create_account}
+				onDismissModal={this.onDismiss}
+			/>
 		)
 	}
 
