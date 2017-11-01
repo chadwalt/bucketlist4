@@ -7,6 +7,7 @@ import LoginForm from "../components/login_form"
 import { Redirect } from "react-router"
 import BaseUrl from "../config"
 import PropTypes from "prop-types"
+import wallpaper from "../imgs/city-wallpaper-18.jpg"
 
 
 class Login extends Component {
@@ -78,6 +79,14 @@ class Login extends Component {
 
 	onDismiss = () => {
 		this.setState({ visible: false })
+	}
+
+	componentDidMount(){
+		document.body.style.backgroundImage = `url('${wallpaper}')`
+	}
+
+	componentWillMount(){
+		document.body.style.backgroundImage = `url('${wallpaper}')`
 	}
 
 	render() {
