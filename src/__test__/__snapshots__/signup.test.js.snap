@@ -19,7 +19,7 @@ exports[`Login Snapshot renders correctly 1`] = `
           <h3
             className="panel-title"
           >
-            Please Sign Up
+            Sign Up
           </h3>
         </div>
         <div
@@ -86,14 +86,14 @@ exports[`Login Snapshot renders correctly 1`] = `
                 />
               </div>
               <a
-                className="btn btn-lg btn-success btn-block"
+                className="btn btn-lg btn-primary btn-block"
                 href="index.html"
                 onClick={[Function]}
               >
                 Create Account
               </a>
               <a
-                className="btn btn-lg btn-success btn-block"
+                className="btn btn-lg btn-primary btn-block"
                 href="index.html"
                 onClick={[Function]}
               >
